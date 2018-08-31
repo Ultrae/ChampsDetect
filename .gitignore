@@ -1,3 +1,4 @@
 .idea/
 website/hacktaferme/.idea/*
 website/hacktaferme/venv/*
+*.swp
