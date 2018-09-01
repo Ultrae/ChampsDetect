@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'home',
-    'user',
+    'user.apps.UserConfig',
     'expert',
     'django.contrib.admin',
     'django.contrib.auth',
