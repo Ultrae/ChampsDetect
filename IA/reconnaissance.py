@@ -1,10 +1,11 @@
 import numpy
 import os
 from PIL import Image
+from keras.models import load_model
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 
 SIZE_CELL = 100
 SIZE_IMG = 1000
-
 
 def cut(path_img, dir_save):
     img = Image.fromarray(numpy.array(Image.open(path_img)) // 256)
@@ -42,3 +43,16 @@ def cut_expert(path_img, dir_save, select_pts):
                 cropped_img.save(good_dir + '/' + str(i) + '_' + str(j) + '.png', "PNG")
                 cropped_img.close()
     img.close()
+
+
+def recognize(model_file, path):
+  model = load_model(model_file)
+  img = load_img(path)
+
+  x = img_to_array(img)
+  x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2]) # 3D to 4D
+
+  return model.predict(x)[0]
+
+#print ("proba clean : " + str(recognize('model.h5', 'data/train/good/500_300.png')))
+print ("proba clean : " + str(recognize('model.h5', 'data/train/bad/800_600.png')))
