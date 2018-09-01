@@ -12,7 +12,7 @@ import os
 
 sys.path.insert(0, '../IA/')
 
-from reconnaissance import cut
+from reconnaissance import cut, recognize
 
 @csrf_exempt
 def index(request):
@@ -23,9 +23,14 @@ def index(request):
             name = zipHandler(request)
             # Cut in little pieces
             path = 'zip_folders/' + name + "/"
+            new_dir = 'cut_images/' + name + "/"
             for file in os.listdir(path):
-                new_dir = 'cut_images/' + name + "/" + file
-                cut(path + file, new_dir)
+                new_new_dir =  new_dir + file
+                cut(path + file, new_new_dir)
+            # Recognition
+            # List of int
+            result = recognize(new_dir + "466nm.tiff")
+            print(result)
 
             return render(request, 'user/index.html')
     else:

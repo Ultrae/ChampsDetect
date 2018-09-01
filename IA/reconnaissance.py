@@ -19,12 +19,15 @@ def cut(path_img, dir_save):
         os.makedirs(dir_save)
     for i in range(0, SIZE_IMG, SIZE_CELL):
         for j in range(0, SIZE_IMG, SIZE_CELL):
+            # Crop
             area = (i, j, i + SIZE_CELL, j + SIZE_CELL)
             cropped_img = img.crop(area)
+            # Cell name
             pattern = re.compile('[0-9]+nm.tiff')
             pos = pattern.search(path_img)
             tuple_pos = pos.span()
             filename = path_img[tuple_pos[0]:tuple_pos[1]]
+            # Save cell
             cropped_img.save(get_savename(filename, dir_save, i, j))
             cropped_img.close()
     img.close()
