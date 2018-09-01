@@ -74,9 +74,9 @@ def recognize(model_file, path): # model_file : model + weight
     x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2]) # 3D to 4D
 
     value = model.predict(x)[0][0]
-    cpt += 1
     if value < seuil:
       bad_list.append(cpt)
+    cpt += 1
   return bad_list
 
 def color(img_r, img_g, img_b):
