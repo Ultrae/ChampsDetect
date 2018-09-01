@@ -57,14 +57,14 @@ def cut_expert(path_img, dir_save, select_pts):
     img.close()
 
 
-def recognize(model_file, path):
+def recognize(model_file, path): # model_file : model + weight
   try:
     model = load_model(model_file)
   except IOError:
     print ('no good model')
     return [-1]
 
-  seuil = 0.8
+  seuil = 0.2
   cpt = 0
   bad_list = []
   for file in os.listdir(path):
@@ -75,7 +75,8 @@ def recognize(model_file, path):
 
     value = model.predict(x)[0][0]
     cpt += 1
-    bad_list.append(cpt)
+    if value < seuil:
+      bad_list.append(cpt)
   return bad_list
 
 def color(img_r, img_g, img_b):
