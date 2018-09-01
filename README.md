@@ -19,7 +19,7 @@
 Si Docker est utilisé, lien vers les images ou le docker-compose
 
 ## Technologies utilisées
-1.  Tensorflow - Intelligence Artificielle
+1.  Keras - Intelligence Artificielle
 2.  Django Python
 3.  Javascript
 
