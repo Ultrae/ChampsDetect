@@ -3,4 +3,5 @@ website/hacktaferme/.idea/*
 website/hacktaferme/venv/*
 .*.swp
 __pycache__/
+migrations/
 */pyc
