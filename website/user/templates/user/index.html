@@ -83,8 +83,10 @@
             <form enctype="multipart/form-data"
                   action="{% url 'user:index' %}" method="post">
                 <!-- csrf_token -->
-                {{ form }}
-                <input type="submit" value="Submit">
+                {% if form %}
+                    {{ form }}
+                    <input type="submit" value="Submit">
+                {% endif %}
             </form>
         </div>
 

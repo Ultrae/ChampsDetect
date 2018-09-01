@@ -29,7 +29,7 @@ def index(request):
                 cut(path + file, new_new_dir)
             # Recognition
             # List of int
-            result = recognize(new_dir + "466nm.tiff")
+            result = recognize("../IA/model.h5", new_dir + "466nm.tiff")
             print(result)
 
             return render(request, 'user/index.html')
