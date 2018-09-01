@@ -1,3 +1,29 @@
 [----- TODO -----]
 
-Too many things
+[ T ] TODO
+{ P } PENDING
+| D | DONE
+
+{ P } README détaillé
+
+{ P } IA
+  | D | Script de découpage d'image
+  { P } ...
+
+{ P } Plateforme web
+  { P } Contenu
+  { P } Page d'accueil
+    { P } Description
+    [ T ] Connexion
+    [ T ] Inscription
+  { P } Page utilisateur - reconnaissance
+    { P } Formulaire
+    | D | Partie dossier zip
+    { P } Traitement des images
+    [ T ] Affichage/gestion des résultats
+  { P } Page expert - apprentissage
+    { P } Formulaire
+    [ T ] Partie dossier zip
+    [ T ] Reconstruction image en RVB
+    { P } Sélection des zones anormales
+    [ T ] Lancer l'apprentissage avec les zones données
