@@ -1,5 +1,6 @@
 import numpy
 import os
+import re
 from PIL import Image
 from keras.models import load_model
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
@@ -8,8 +9,8 @@ import sys
 SIZE_CELL = 100
 SIZE_IMG = 1000
 
-def get_savename(dir_save, i, j):
-    return dir_save + '/' + str(i) + '_' + str(j) + '.png'
+def get_savename(path_img, dir_save, i, j):
+    return dir_save + '/' + re.search(".*[^(\.tiff)]", path_img).group(0) + str(i) + '_' + str(j) + '.png'
 
 def cut(path_img, dir_save):
     img = Image.fromarray(numpy.array(Image.open(path_img)) // 256)
@@ -20,7 +21,7 @@ def cut(path_img, dir_save):
         for j in range(0, SIZE_IMG - SIZE_CELL, SIZE_CELL):
             area = (i, j, i + SIZE_CELL, j + SIZE_CELL)
             cropped_img = img.crop(area)
-            cropped_img.save(get_savename(dir_save, i, j))
+            cropped_img.save(get_savename(path_img, dir_save, i, j))
             cropped_img.close()
     img.close()
 
@@ -41,10 +42,10 @@ def cut_expert(path_img, dir_save, select_pts):
             area = (i, j, i + SIZE_CELL, j + SIZE_CELL)
             cropped_img = img.crop(area)
             if (i, j) in select_pts:
-                cropped_img.save(get_savename(bad_dir, i, j), "PNG")
+                cropped_img.save(get_savename(path_img, bad_dir, i, j), "PNG")
                 cropped_img.close()
             else:
-                cropped_img.save(get_savename(good_dir, i, j), "PNG")
+                cropped_img.save(get_savename(path_img, good_dir, i, j), "PNG")
                 cropped_img.close()
     img.close()
 
