@@ -38,37 +38,13 @@ def index(request):
             print(result)
 
             # Build the picture
-            today = str(datetime.datetime.now())
-            dir_save = "result_color/" + name + "-" + today
-            if not os.path.exists(dir_save):
-                os.makedirs("user/" + dir_save)
+            dir_save = "result_color"
+            if not os.path.exists("static/" + dir_save):
+                os.makedirs("static/" + dir_save)
             img = color(path + "610nm.tiff", path + "550nm.tiff", path + "466nm.tiff")
             img = img.convert("RGB")
-            filepath = dir_save + "/" + name + ".png"
-            img.save(filepath)
-
-            ''' red_canal = os.listdir(new_dir + "610nm.tiff")
-            green_canal = os.listdir(new_dir + "550nm.tiff")
-            blue_canal = os.listdir(new_dir + "466nm.tiff")
-            inc = 0
-            img_pieces = []
-            today = str(datetime.datetime.now())
-            dir_save = "result_color/" + name + "-" + today
-            if not os.path.exists(dir_save):
-                os.makedirs(dir_save)
-            for i in range(2): # len(red_canal)):
-                img = color(new_dir + "610nm.tiff" + "/" + red_canal[i],
-                            new_dir + "550nm.tiff" + "/" + green_canal[i],
-                            new_dir + "466nm.tiff" + "/" + blue_canal[i])
-                filepath = dir_save + "/" + name + str(i) + ".png"
-                img = img.convert("RGB")
-                img.save(filepath)
-                img_pieces.append(filepath)
-                if inc < len(result) and result[inc] == i:
-                    # Color in Red
-                    print("Bad: ", i)
-                    inc += 1
-                print(img_pieces[-1]) '''
+            filepath = dir_save + "/recognition.png"
+            img.save("static/" + filepath)
 
             return render(request, 'user/index.html', { 'img': filepath })
     else:
