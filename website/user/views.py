@@ -4,9 +4,14 @@ from django.template import loader
 
 from django.views.decorators.csrf import csrf_exempt
 
-import zipfile
-
 from .forms import UserForm
+
+import zipfile
+import sys
+
+sys.path.insert(0, '../IA/')
+
+from reconnaissance import cut
 
 @csrf_exempt
 def index(request):
