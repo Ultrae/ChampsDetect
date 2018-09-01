@@ -58,3 +58,16 @@ def recognize(model_file, path):
 
 #print ("proba clean : " + str(recognize('model.h5', 'data/train/good/500_300.png')))
 print ("proba clean : " + str(recognize('model.h5', 'data/train/bad/800_600.png')))
+
+
+def color(img_r, img_g, img_b):
+    R = numpy.array(Image.open(img_r)) // 256
+    G = numpy.array(Image.open(img_g)) // 256
+    B = numpy.array(Image.open(img_b)) // 256
+    data = [(R[i // SIZE_IMG][i % SIZE_IMG], G[i // SIZE_IMG][i % SIZE_IMG], B[i // SIZE_IMG][i % SIZE_IMG])
+            for i in range(SIZE_IMG * SIZE_IMG)]
+
+    img = Image.new('RGB', (SIZE_IMG, SIZE_IMG))
+    img.putdata(data)
+    return img
+
