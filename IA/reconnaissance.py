@@ -57,13 +57,23 @@ def cut_expert(path_img, dir_save, select_pts):
 def recognize(model_file, path):
   try:
     model = load_model(model_file)
-    img = load_img(path)
   except IOError:
-    return -1
-  x = img_to_array(img)
-  x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2]) # 3D to 4D
+    print ('no good model')
+    return [-1]
 
-  return model.predict(x)[0][0]
+  seuil = 0.8
+  cpt = 0
+  bad_list = []
+  for file in os.listdir(path):
+    new_file = path + '/' + file
+    img = load_img(new_file)
+    x = img_to_array(img)
+    x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2]) # 3D to 4D
+
+    value = model.predict(x)[0][0]
+    cpt += 1
+    bad_list.append(cpt)
+  return bad_list
 
 def color(img_r, img_g, img_b):
     R = numpy.array(Image.open(img_r)) // 256
@@ -78,4 +88,4 @@ def color(img_r, img_g, img_b):
 
 if __name__ == '__main__':
   path = sys.argv[1]
-  print ("proba clean : " + str(recognize('model.h5', path)))
+  print (recognize('model.h5', path))
