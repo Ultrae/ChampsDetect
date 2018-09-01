@@ -9,10 +9,12 @@ def learnImage(filepath): # Save model + weight in filepath
   img_width, img_height = 100, 100
   channel = 3
   nb_train_samples = 80
-  epochs = 500
+  nb_validation_samples = 1
+  epochs = 100
   batch_size = 40
   filepath = 'model.h5'
   train_data_dir = 'data/train' # Database
+  validation_data_dir = 'data/validation'
 
   if K.image_data_format() == 'channels_first':
     input_shape = (channel, img_width, img_height)
@@ -50,8 +52,16 @@ def learnImage(filepath): # Save model + weight in filepath
       zoom_range=0.2,
       horizontal_flip=True)
 
+  test_datagen = ImageDataGenerator(rescale=1. / 255)
+
   train_generator = train_datagen.flow_from_directory(
       train_data_dir,
+      target_size=(img_width, img_height),
+      batch_size=batch_size,
+      class_mode='binary')
+
+  validation_generator = test_datagen.flow_from_directory(
+      validation_data_dir,
       target_size=(img_width, img_height),
       batch_size=batch_size,
       class_mode='binary')
@@ -59,7 +69,9 @@ def learnImage(filepath): # Save model + weight in filepath
   model.fit_generator(
       train_generator,
       steps_per_epoch=nb_train_samples // batch_size,
-      epochs=epochs)
+      epochs=epochs,
+      validation_data=validation_generator,
+      validation_steps=nb_validation_samples // batch_size)
 
   model.save(filepath)
   print('save')
