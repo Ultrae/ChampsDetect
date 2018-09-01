@@ -80,13 +80,17 @@ def recognize(model_file, path): # model_file : model + weight
   return bad_list
 
 def color(img_r, img_g, img_b):
-    R = numpy.array(Image.open(img_r)) // 256
+    img_R = Image.open(img_r)
+    R = numpy.array(img_R) // 256
     G = numpy.array(Image.open(img_g)) // 256
     B = numpy.array(Image.open(img_b)) // 256
-    data = [(R[i // SIZE_IMG][i % SIZE_IMG], G[i // SIZE_IMG][i % SIZE_IMG], B[i // SIZE_IMG][i % SIZE_IMG])
-            for i in range(SIZE_IMG * SIZE_IMG)]
+    width = img_R.width
+    # data = [(R[i // SIZE_IMG][i % SIZE_IMG], G[i // SIZE_IMG][i % SIZE_IMG], B[i // SIZE_IMG][i % SIZE_IMG])
+    #         for i in range(SIZE_IMG * SIZE_IMG)]
+    data = [(R[i // width][i % width], G[i // width][i % width], B[i // width][i % width])
+              for i in range(width * width)]
 
-    img = Image.new('RGB', (SIZE_IMG, SIZE_IMG))
+    img = Image.new('RGB', (width, width))
     img.putdata(data)
     return img
 
