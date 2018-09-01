@@ -7,6 +7,9 @@ from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_a
 SIZE_CELL = 100
 SIZE_IMG = 1000
 
+def get_savename(dir_save, i, j):
+    return dir_save + '/' + str(i) + '_' + str(j) + '.png'
+
 def cut(path_img, dir_save):
     img = Image.fromarray(numpy.array(Image.open(path_img)) // 256)
     img = img.convert("RGB")
@@ -16,7 +19,7 @@ def cut(path_img, dir_save):
         for j in range(0, SIZE_IMG - SIZE_CELL, SIZE_CELL):
             area = (i, j, i + SIZE_CELL, j + SIZE_CELL)
             cropped_img = img.crop(area)
-            cropped_img.save(dir_save + '/' + str(i) + '_' + str(j) + '.png', "PNG")
+            cropped_img.save(get_savename(dir_save, i, j))
             cropped_img.close()
     img.close()
 
@@ -24,8 +27,8 @@ def cut(path_img, dir_save):
 def cut_expert(path_img, dir_save, select_pts):
     img = Image.fromarray(numpy.array(Image.open(path_img)) // 256)
     img = img.convert("RGB")
-    good_dir = dir_save + '/Good'
-    bad_dir = dir_save + '/Bad'
+    good_dir = dir_save + '/good'
+    bad_dir = dir_save + '/bad'
     if not os.path.exists(dir_save):
         os.makedirs(dir_save)
     if not os.path.exists(good_dir):
@@ -37,10 +40,10 @@ def cut_expert(path_img, dir_save, select_pts):
             area = (i, j, i + SIZE_CELL, j + SIZE_CELL)
             cropped_img = img.crop(area)
             if (i, j) in select_pts:
-                cropped_img.save(bad_dir + '/' + str(i) + '_' + str(j) + '.png', "PNG")
+                cropped_img.save(get_savename(bad_dir, i, j), "PNG")
                 cropped_img.close()
             else:
-                cropped_img.save(good_dir + '/' + str(i) + '_' + str(j) + '.png', "PNG")
+                cropped_img.save(get_savename(good_dir, i, j), "PNG")
                 cropped_img.close()
     img.close()
 
