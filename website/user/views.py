@@ -19,11 +19,21 @@ def index(request):
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             # Save the folder
-            img_zip = zipfile.ZipFile(request.FILES['img_folder'])
-            img_zip.extractall('zip_folders/')
-            img_zip.close()
+            name = zipHandler(request)
+            # Cut in little pieces
+            path = 'zip_folders/' + name
+            # cut()
 
             return render(request, 'user/index.html')
     else:
         form = UserForm()
     return render(request, 'user/index.html', { 'form': form })
+
+
+def zipHandler(request):
+    img_zip = zipfile.ZipFile(request.FILES['img_folder'])
+    img_zip.extractall('zip_folders/')
+    name = img_zip.filename[:-4]
+    img_zip.close()
+
+    return name
