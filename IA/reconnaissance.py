@@ -17,8 +17,8 @@ def cut(path_img, dir_save):
     img = img.convert("RGB")
     if not os.path.exists(dir_save):
         os.makedirs(dir_save)
-    for i in range(0, SIZE_IMG - SIZE_CELL, SIZE_CELL):
-        for j in range(0, SIZE_IMG - SIZE_CELL, SIZE_CELL):
+    for i in range(0, SIZE_IMG, SIZE_CELL):
+        for j in range(0, SIZE_IMG, SIZE_CELL):
             area = (i, j, i + SIZE_CELL, j + SIZE_CELL)
             cropped_img = img.crop(area)
             cropped_img.save(get_savename(path_img, dir_save, i, j))
@@ -37,8 +37,8 @@ def cut_expert(path_img, dir_save, select_pts):
         os.makedirs(good_dir)
     if not os.path.exists(bad_dir):
         os.makedirs(bad_dir)
-    for i in range(0, SIZE_IMG - SIZE_CELL, SIZE_CELL):
-        for j in range(0, SIZE_IMG - SIZE_CELL, SIZE_CELL):
+    for i in range(0, SIZE_IMG, SIZE_CELL):
+        for j in range(0, SIZE_IMG, SIZE_CELL):
             area = (i, j, i + SIZE_CELL, j + SIZE_CELL)
             cropped_img = img.crop(area)
             if (i, j) in select_pts:
