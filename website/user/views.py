@@ -8,6 +8,7 @@ from .forms import UserForm
 
 import zipfile
 import sys
+import os
 
 sys.path.insert(0, '../IA/')
 
@@ -22,7 +23,9 @@ def index(request):
             name = zipHandler(request)
             # Cut in little pieces
             path = 'zip_folders/' + name
-            # cut()
+            for file in os.listdir(path):
+                # new_dir = 'cut_images/' + name + "/"
+                # cut(path, new_dir)
 
             return render(request, 'user/index.html')
     else:
