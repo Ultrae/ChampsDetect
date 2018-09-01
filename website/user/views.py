@@ -10,12 +10,12 @@ import zipfile
 import sys
 import os
 import datetime
-from PIL import Image
+from PIL import Image, ImageDraw
 import numpy
 
 sys.path.insert(0, '../IA/')
 
-from reconnaissance import cut, recognize, color
+from reconnaissance import cut, recognize, color, SIZE_CELL, SIZE_IMG
 
 @csrf_exempt
 def index(request):
@@ -43,6 +43,21 @@ def index(request):
                 os.makedirs("static/" + dir_save)
             img = color(path + "610nm.tiff", path + "550nm.tiff", path + "466nm.tiff")
             img = img.convert("RGB")
+
+            # Show anomalies on the picture
+            inc = 0
+            piece = 0
+            result_len = len(result)
+            for i in range(0, SIZE_IMG, SIZE_CELL):
+                for j in range(0, SIZE_IMG, SIZE_CELL):
+                    if inc < result_len and result[inc] == piece:
+                        draw = ImageDraw.Draw(img)
+                        draw.rectangle([(i, j),
+                                        (i + SIZE_CELL, j + SIZE_CELL)],
+                                       fill="red")
+                        inc += 1
+                    piece += 1
+
             filepath = dir_save + "/recognition.png"
             img.save("static/" + filepath)
 
