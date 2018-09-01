@@ -38,7 +38,7 @@ def learnImage(filepath): # Save model + weight in filepath
   model.add(Activation('relu'))
   model.add(Dropout(0.5))
   model.add(Dense(1))
-  model.add(Activation('sigmoid'))
+  model.add(Activation('softmax'))
 
   model.compile(loss='binary_crossentropy',
                 optimizer='rmsprop',
