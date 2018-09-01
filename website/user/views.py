@@ -24,7 +24,7 @@ def index(request):
             # Cut in little pieces
             path = 'zip_folders/' + name + "/"
             for file in os.listdir(path):
-                new_dir = 'cut_images/' + name
+                new_dir = 'cut_images/' + name + "/" + file
                 cut(path + file, new_dir)
 
             return render(request, 'user/index.html')
