@@ -46,13 +46,15 @@ def cut_expert(path_img, dir_save, select_pts):
 
 
 def recognize(model_file, path):
-  model = load_model(model_file)
-  img = load_img(path)
-
+  try:
+    model = load_model(model_file)
+    img = load_img(path)
+  except IOError:
+    return -1
   x = img_to_array(img)
   x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2]) # 3D to 4D
 
-  return model.predict(x)[0]
+  return model.predict(x)[0][0]
 
 #print ("proba clean : " + str(recognize('model.h5', 'data/train/good/500_300.png')))
 print ("proba clean : " + str(recognize('model.h5', 'data/train/bad/800_600.png')))
