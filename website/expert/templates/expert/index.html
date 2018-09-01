@@ -26,38 +26,40 @@
 
     <!-- Custom styles for this template -->
     <link href="{% static "css/grayscale.min.css" %}" rel="stylesheet"/>
-    <title>Title of document</title>
-    <script type="text/javascript">
-	var ff_image_url;
-	var ff_callback_url;
-	var ff_cancel_url;
-	var ff_lang;
-
-	function ff_setup(img_src){
-		ff_image_url = img_src;
-        // callback for saving changes
-		ff_callback_url = "http://localhost:8080/user/save_image/";
-        // callback for cancel actions
-		ff_cancel_url = "http://localhost:8080/";
-		ff_lang = "en-US";
-		ff_activate();
-	}
-	</script>
-
-	<script type="text/javascript"
-		src="http://fotoflexer.com/API/ff_api_v1_01.js">
-	</script>
-
+    <title>ChampsDetec</title>
 </head>
 
 <body id="page-top">
-    <img src="{% static "img/bg-masthead.jpg" %}"
-	    id="{% static "img/bg-masthead.jpg" %}"
-	    onclick="ff_setup(this.id)" />
 
-	<!-- plain -->
-	<img src="http://www.yourpage.com/image.jpg" onclick="ff_setup(this.src)" />
-
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"> Ultrae </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button"
+                data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger"
+                       href="/home">Qu'est-ce donc ?</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger"
+                       href="/user"> Utiliser ChampsDetec </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger"
+                       href="/expert">Renseigner des données</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 </body>
 
 </html>
