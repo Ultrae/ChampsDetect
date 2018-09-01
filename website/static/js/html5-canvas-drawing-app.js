@@ -122,7 +122,7 @@ function prepareCanvas()
 	
 	outlineImage.onload = function() { resourceLoaded(); 
 	};
-	outlineImage.src = "/static/images/0_300.png";
+	outlineImage.src = "/static/images/blank.png";
 
 	// Add mouse events
 	// ----------------
