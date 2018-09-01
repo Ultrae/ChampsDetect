@@ -20,7 +20,7 @@
     { P } Formulaire
     | D | Partie dossier zip
     { P } Traitement des images
-    [ T ] Affichage/gestion des résultats
+    { P } Affichage/gestion des résultats
   { P } Page expert - apprentissage
     { P } Formulaire
     [ T ] Partie dossier zip
