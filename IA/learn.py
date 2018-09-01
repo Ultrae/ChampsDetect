@@ -6,10 +6,10 @@ from keras.models import load_model
 from keras import backend as K
 
 def learnImage(filepath): # Save model + weight in filepath
-  img_width, img_height = 100, 100
+  img_width, img_height = 50, 50
   channel = 3
-  nb_train_samples = 80
-  nb_validation_samples = 1
+  nb_train_samples = 360
+  nb_validation_samples = 40
   epochs = 100
   batch_size = 40
   filepath = 'model.h5'
