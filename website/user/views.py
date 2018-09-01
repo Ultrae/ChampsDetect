@@ -22,10 +22,10 @@ def index(request):
             # Save the folder
             name = zipHandler(request)
             # Cut in little pieces
-            path = 'zip_folders/' + name
+            path = 'zip_folders/' + name + "/"
             for file in os.listdir(path):
-                # new_dir = 'cut_images/' + name + "/"
-                # cut(path, new_dir)
+                new_dir = 'cut_images/' + name
+                cut(path + file, new_dir)
 
             return render(request, 'user/index.html')
     else:
