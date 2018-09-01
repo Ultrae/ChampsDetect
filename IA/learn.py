@@ -8,9 +8,9 @@ from keras import backend as K
 def learnImage(filepath): # Save model + weight in filepath
   img_width, img_height = 100, 100
   channel = 3
-  nb_train_samples = 2
-  epochs = 50
-  batch_size = 1
+  nb_train_samples = 80
+  epochs = 500
+  batch_size = 40
   filepath = 'model.h5'
   train_data_dir = 'data/train' # Database
 
@@ -38,7 +38,7 @@ def learnImage(filepath): # Save model + weight in filepath
   model.add(Activation('relu'))
   model.add(Dropout(0.5))
   model.add(Dense(1))
-  model.add(Activation('softmax'))
+  model.add(Activation('sigmoid'))
 
   model.compile(loss='binary_crossentropy',
                 optimizer='rmsprop',

@@ -3,6 +3,7 @@ import os
 from PIL import Image
 from keras.models import load_model
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+import sys
 
 SIZE_CELL = 100
 SIZE_IMG = 1000
@@ -59,10 +60,6 @@ def recognize(model_file, path):
 
   return model.predict(x)[0][0]
 
-#print ("proba clean : " + str(recognize('model.h5', 'data/train/good/500_300.png')))
-print ("proba clean : " + str(recognize('model.h5', 'data/train/bad/800_600.png')))
-
-
 def color(img_r, img_g, img_b):
     R = numpy.array(Image.open(img_r)) // 256
     G = numpy.array(Image.open(img_g)) // 256
@@ -74,3 +71,6 @@ def color(img_r, img_g, img_b):
     img.putdata(data)
     return img
 
+if __name__ == '__main__':
+  path = sys.argv[1]
+  print ("proba clean : " + str(recognize('model.h5', path)))
