@@ -6,6 +6,7 @@
     <title>HTML5 Create HTML5 Canvas JavaScript Drawing App Example</title>
     <script type="text/javascript"
             src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <!--[if IE]>
 <script type="text/javascript" src="{% static "js/excanvas.js" %}"></script>
     <![endif]-->
@@ -13,9 +14,22 @@
             src="{% static "js/html5-canvas-drawing-app.js" %}"></script>
 </head>
 <body>
-<div id="canvasDiv"></div>
-<script type="text/javascript"> $(document).ready(function () {
-    prepareCanvas();
-});</script>
+
+
+    <div class="col-lg-8">
+        <div class="col-lg-6">
+            <div id="canvasDiv" style="opacity:0.5; margin-bottom: -507px;"></div>
+            <img src="{% static "images/example.png" %}" height="485px" width="485px" style="margin-left: 17.9px"/>
+        </div>
+        <div class="col-lg-6">
+            <img src="{% static "images/paint.png" %}" height="75px" width="75px" onclick="click_paint()"/>
+            <img src="{% static "images/Erase.png" %}" height="75px" width="75px" onclick="click_erase()"/>
+        </div>
+    </div>
+
+
+    <script type="text/javascript"> $(document).ready(function () {
+        prepareCanvas();
+    });</script>
 </body>
 </html>
