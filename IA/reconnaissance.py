@@ -10,7 +10,7 @@ SIZE_CELL = 50
 SIZE_IMG = 1000
 
 def get_savename(path_img, dir_save, i, j):
-    return dir_save + '/' + '0_' + re.search(".*[^(\.tiff)]", path_img).group(0) + '-' + str(i) + '_' + str(j) + '.png'
+    return dir_save + '/' + re.search(".*[^(\.tiff)]", path_img).group(0) + '-' + str(i) + '_' + str(j) + '.png'
 
 def cut(path_img, dir_save):
     img = Image.fromarray(numpy.array(Image.open(path_img)) // 256)
