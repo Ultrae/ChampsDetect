@@ -4,14 +4,36 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras.models import load_model
 from keras import backend as K
+import numpy as np
+
+import glob
+
+def assembly(path, num_channel): # path of training - number of chanel
+  res = np.array([])
+  if path != '':
+    path += '/'
+
+  for i in range (num_channel):
+    files = glob.glob(path + str(i) + '*')
+    if len(files) == 0:
+      continue
+
+    for file in files:
+      print (file)
+      img = load_img(file)
+      x = img_to_array(img)
+      np.concatenate((res, x))
+  
+  return res
+
 
 def learnImage(filepath): # Save model + weight in filepath
   img_width, img_height = 50, 50
   channel = 3
-  nb_train_samples = 360
-  nb_validation_samples = 40
-  epochs = 100
-  batch_size = 40
+  nb_train_samples = 393
+  nb_validation_samples = 39
+  epochs = 1500
+  batch_size = 39
   filepath = 'model.h5'
   train_data_dir = 'data/train' # Database
   validation_data_dir = 'data/validation'
@@ -76,7 +98,8 @@ def learnImage(filepath): # Save model + weight in filepath
   model.save(filepath)
   print('save')
 
-learnImage('model.h5')
+#learnImage('model.h5')
+assembly('data/train/bad', 4)
 
 """
 new_model = load_model(filepath)
