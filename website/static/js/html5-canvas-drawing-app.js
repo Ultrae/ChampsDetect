@@ -93,36 +93,36 @@ function prepareCanvas()
 	// -----------
 	crayonImage.onload = function() { resourceLoaded(); 
 	};
-	crayonImage.src = "images/crayon-outline.png";
+	crayonImage.src = "/static/images/crayon-outline.png";
 	//context.drawImage(crayonImage, 0, 0, 100, 100);
 	
 	markerImage.onload = function() { resourceLoaded(); 
 	};
-	markerImage.src = "images/marker-outline.png";
+	markerImage.src = "/static/images/marker-outline.png";
 	
 	eraserImage.onload = function() { resourceLoaded(); 
 	};
-	eraserImage.src = "images/eraser-outline.png";	
+	eraserImage.src = "/static/images/eraser-outline.png";
 	
 	crayonBackgroundImage.onload = function() { resourceLoaded(); 
 	};
-	crayonBackgroundImage.src = "images/crayon-background.png";
+	crayonBackgroundImage.src = "/static/images/crayon-background.png";
 	
 	markerBackgroundImage.onload = function() { resourceLoaded(); 
 	};
-	markerBackgroundImage.src = "images/marker-background.png";
+	markerBackgroundImage.src = "/static/images/marker-background.png";
 	
 	eraserBackgroundImage.onload = function() { resourceLoaded(); 
 	};
-	eraserBackgroundImage.src = "images/eraser-background.png";
+	eraserBackgroundImage.src = "/static/images/eraser-background.png";
 
 	crayonTextureImage.onload = function() { resourceLoaded(); 
 	};
-	crayonTextureImage.src = "images/crayon-texture.png";
+	crayonTextureImage.src = "/static/images/crayon-texture.png";
 	
 	outlineImage.onload = function() { resourceLoaded(); 
 	};
-	outlineImage.src = "images/watermelon-duck-outline.png";
+	outlineImage.src = "/static/images/watermelon-duck-outline.png";
 
 	// Add mouse events
 	// ----------------
