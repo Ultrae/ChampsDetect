@@ -1,4 +1,6 @@
 .idea/
 website/hacktaferme/.idea/*
 website/hacktaferme/venv/*
-*.swp
+.*.swp
+__pycache__/
+*/pyc
