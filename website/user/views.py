@@ -58,7 +58,7 @@ def index(request):
             # List of int
             result = []
             if zip:
-                result = recognize("../IA/model.h5", new_dir + "466nm.tiff")
+                result = recognize("../IA/model.h5", new_dir + "478nm.tiff")
             elif png:
                 result = recognize("../IA/model.h5", new_dir + "/" + name)
             anomaly_rate = (len(result) / 400) * 100
