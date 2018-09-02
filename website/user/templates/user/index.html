@@ -90,13 +90,12 @@
                 {% if form %}
                     {{ form.img_folder }}
                     <br>
-                    {% for value in form.select.field.choices %}
-                        <select>
-                            {{ value }}
-                        </select>
-                    {% endfor %}
                     <br>
-                    <input type="submit" value="Submit">
+                    {{ form.select }}
+                    <br>
+                    <br>
+                    <br>
+                    <input class="btn btn-primary" type="submit" value="Submit">
                 {% endif %}
             </form>
             {% if not form %}
