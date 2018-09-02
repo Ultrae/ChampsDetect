@@ -88,7 +88,14 @@
                   action="{% url 'user:index' %}" method="post">
                 <!-- csrf_token -->
                 {% if form %}
-                    {{ form }}
+                    {{ form.img_folder }}
+                    <br>
+                    {% for value in form.select.field.choices %}
+                        <select>
+                            {{ value }}
+                        </select>
+                    {% endfor %}
+                    <br>
                     <input type="submit" value="Submit">
                 {% endif %}
             </form>
