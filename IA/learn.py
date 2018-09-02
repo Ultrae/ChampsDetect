@@ -23,17 +23,17 @@ def assembly(path, num_channel): # path of training - number of chanel
       img = load_img(file)
       x = img_to_array(img)
       np.concatenate((res, x))
-  
+
   return res
 
 
 def learnImage(filepath): # Save model + weight in filepath
   img_width, img_height = 50, 50
   channel = 3
-  nb_train_samples = 393
-  nb_validation_samples = 39
-  epochs = 1500
-  batch_size = 39
+  nb_train_samples = 929
+  nb_validation_samples = 37
+  epochs = 550
+  batch_size = 18
   filepath = 'model.h5'
   train_data_dir = 'data/train' # Database
   validation_data_dir = 'data/validation'
@@ -98,8 +98,8 @@ def learnImage(filepath): # Save model + weight in filepath
   model.save(filepath)
   print('save')
 
-#learnImage('model.h5')
-assembly('data/train/bad', 4)
+learnImage('model.h5')
+#assembly('data/train/bad', 4)
 
 """
 new_model = load_model(filepath)
