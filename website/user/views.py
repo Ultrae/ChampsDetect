@@ -5,6 +5,7 @@ from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import UserForm
+from user.models import Log
 
 import zipfile
 import sys
@@ -89,6 +90,11 @@ def index(request):
                     piece += 1
             filepath = dir_save + "/recognition.png"
             img.save("static/" + filepath)
+
+            log = Log(date=datetime.datetime.now(),
+                      description=form['select'].data,
+                      pourcent=round(anomaly_rate))
+            log.save()
 
             return render(request, 'user/index.html', { 'img': filepath,
                                                         'rate': anomaly_rate
