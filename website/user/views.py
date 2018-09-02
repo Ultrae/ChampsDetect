@@ -35,7 +35,6 @@ def index(request):
             # Recognition
             # List of int
             result = recognize("../IA/model.h5", new_dir + "466nm.tiff")
-            print(result)
 
             # Build the picture
             dir_save = "result_color"
@@ -48,8 +47,8 @@ def index(request):
             inc = 0
             piece = 0
             result_len = len(result)
-            for i in range(0, SIZE_IMG, SIZE_CELL):
-                for j in range(0, SIZE_IMG, SIZE_CELL):
+            for j in range(0, SIZE_IMG, SIZE_CELL):
+                for i in range(0, SIZE_IMG, SIZE_CELL):
                     if inc < result_len and result[inc] == piece:
                         draw = ImageDraw.Draw(img)
                         draw.rectangle([(i, j),
