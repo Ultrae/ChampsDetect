@@ -1,12 +1,12 @@
 # Nom de votre projet
   Nous avons décidé de nommer notre projet :
-    "ChampsDetec"
+    "ChampsDetect"
 
 ## Présentation
     Ce projet permet aux vignerons de détecter le taux de grains de raisins sains
   dans un seau de grappes, sur présentation de photos.
     Les agriculteurs en grandes cultures peuvent également recevoir des
-  informations quand aux parties de parcelles endomagées.
+  informations quant aux parties de parcelles endommagées.
     Ce projet nous a été proposé par Sébastien et Basile au niveau de la vigne,
   ainsi que par Jean-Baptiste Guichon par rapport aux parcelles grandes cultures.
 
@@ -26,4 +26,5 @@ Si Docker est utilisé, lien vers les images ou le docker-compose
 ## Éléments de paramétrage
 
 ## Commandes (lancer / stopper / autre...)# HackTaFerme
-  Se connecter sur l'adresse : ...
+  $ cd website
+  $ python manage.py runserver
