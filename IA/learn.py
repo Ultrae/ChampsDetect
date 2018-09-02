@@ -60,7 +60,7 @@ def learnImage(filepath): # Save model + weight in filepath
   model.add(Flatten())
   model.add(Dense(64))
   model.add(Activation('relu'))
-  model.add(Dropout(0.5))
+  model.add(Dropout(0.55))
   model.add(Dense(1))
   model.add(Activation('sigmoid'))
 
