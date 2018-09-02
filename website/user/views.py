@@ -15,7 +15,7 @@ import numpy
 
 sys.path.insert(0, '../IA/')
 
-from reconnaissance import cut, recognize, color, SIZE_CELL, SIZE_IMG
+from reconnaissance import cut, cut_jpg_png, recognize, color, SIZE_CELL, SIZE_IMG
 
 @csrf_exempt
 def index(request):
@@ -23,25 +23,55 @@ def index(request):
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             # Save the folder
-            name = zipHandler(request)
+            if not os.path.exists("image_folder/"):
+                os.makedirs("image_folder")
+
+            name = request.FILES['img_folder'].name
+            zip = int(form['type_of_picture'].data) == 1
+            png = int(form['type_of_picture'].data) == 2
+            if zip: # zip
+                try:
+                    name = zipHandler(request)
+                except zipfile.BadZipFile:
+                    return render(request, 'user/index.html',
+                                    {'form': form})
+            elif png: # PNG
+                name = request.FILES['img_folder'].name
+                file = request.FILES['img_folder']
+                if not os.path.exists("image_folder/" + name):
+                    os.makedirs("image_folder/" + name)
+                with open('image_folder/' + name + "/" + name, "wb+") as dest:
+                    for chunk in file.chunks():
+                        dest.write(chunk)
 
             # Cut in little pieces
-            path = 'zip_folders/' + name + "/"
+            path = 'image_folder/' + name + "/"
             new_dir = 'cut_images/' + name + "/"
             for file in os.listdir(path):
                 new_new_dir =  new_dir + file
-                cut(path + file, new_new_dir)
+                if int(form['type_of_picture'].data) == 1:
+                    cut(path + file, new_new_dir)
+                elif png:
+                    cut_jpg_png(path + file, new_new_dir)
 
             # Recognition
             # List of int
-            result = recognize("../IA/model.h5", new_dir + "466nm.tiff")
+            result = []
+            if zip:
+                result = recognize("../IA/model.h5", new_dir + "466nm.tiff")
+            elif png:
+                result = recognize("../IA/model.h5", new_dir + "/" + name)
             anomaly_rate = (len(result) / 400) * 100
 
             # Build the picture
             dir_save = "result_color"
             if not os.path.exists("static/" + dir_save):
                 os.makedirs("static/" + dir_save)
-            img = color(path + "610nm.tiff", path + "550nm.tiff", path + "466nm.tiff")
+            img = None
+            if zip:
+                img = color(path + "610nm.tiff", path + "550nm.tiff", path + "466nm.tiff")
+            else:
+                img = Image.open(path + name)
             img = img.convert("RGB")
 
             # Show anomalies on the picture
@@ -70,7 +100,7 @@ def index(request):
 
 def zipHandler(request):
     img_zip = zipfile.ZipFile(request.FILES['img_folder'])
-    img_zip.extractall('zip_folders/')
+    img_zip.extractall('image_folder/')
     name = img_zip.filename[:-4]
     img_zip.close()
 
