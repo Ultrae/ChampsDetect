@@ -30,10 +30,10 @@ def assembly(path, num_channel): # path of training - number of chanel
 def learnImage(filepath): # Save model + weight in filepath
   img_width, img_height = 50, 50
   channel = 3
-  nb_train_samples = 929
-  nb_validation_samples = 37
-  epochs = 550
-  batch_size = 18
+  nb_train_samples = 480
+  nb_validation_samples = 480
+  epochs = 400
+  batch_size = 39
   filepath = 'model.h5'
   train_data_dir = 'data/train' # Database
   validation_data_dir = 'data/validation'
