@@ -85,7 +85,8 @@
             <div class="col-lg-8 mx-auto">
                 <h2 class="text-white mb-4"> Historique et statistiques </h2>
                 <p class="text-white-50">
-                    Restez au courant de votre randement et de vos anciennes analyses
+                    Restez au courant de votre randement et de vos anciennes
+                    analyses
                 </p>
             </div>
         </div>
@@ -94,9 +95,10 @@
 
 <!-- Projects Section -->
 <section id="projects" class="projects-section bg-light">
-    <div class="container">
 
-        <!-- Project One Row -->
+
+    {% for i in data %}
+        <div class="container">
         <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
             <div class="col-lg-6">
                 <div class="project-text w-100 my-auto text-center text-lg-left">
@@ -118,6 +120,9 @@
                 </div>
             </div>
         </div>
+    {% endfor %}
+    <!-- Project One Row -->
+
     </div>
 </section>
 
