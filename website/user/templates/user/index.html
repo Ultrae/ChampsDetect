@@ -88,13 +88,23 @@
                   action="{% url 'user:index' %}" method="post">
                 <!-- csrf_token -->
                 {% if form %}
-                    {{ form.img_folder }}
-                    <br>
-                    <br>
+                    <p>Sélectionnez le type d'image que vous souhaitez analyser : </p>
                     {{ form.select }}
-                    <br>
-                    <br>
-                    <br>
+                    <br/>
+                    <br/>
+                    <p>Sélectionnez le format de l'image à analyser : </p>
+                    {{ form.type_of_picture }}
+                    <br/>
+                    <br/>
+                    <p>
+                        Si vous avez choisi une image hyperscpetrale, importez le dossier contenant les images .tiff,
+                        au format .zip.
+                        Si vous avez choisi une image au format PNG; importez l'image.
+                    </p>
+                    {{ form.img_folder }}
+                    <br/>
+                    <br/>
+                    <br/>
                     <input class="btn btn-primary" type="submit" value="Submit">
                 {% endif %}
             </form>

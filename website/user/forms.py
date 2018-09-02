@@ -6,3 +6,8 @@ class UserForm(forms.Form):
     select = forms.ChoiceField(choices=select_list,
                                initial='',
                                widget=forms.Select())
+    type_of_picture_list = [(1, "Hyperspectrale"),
+                            (2, "PNG")]
+    type_of_picture = forms.ChoiceField(choices=type_of_picture_list,
+                                        initial='',
+                                        widget=forms.Select())
