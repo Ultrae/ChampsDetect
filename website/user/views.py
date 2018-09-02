@@ -54,10 +54,9 @@ def index(request):
                         draw = ImageDraw.Draw(img)
                         draw.rectangle([(i, j),
                                         (i + SIZE_CELL, j + SIZE_CELL)],
-                                       fill="red")
+                                       outline="#ff0000")
                         inc += 1
                     piece += 1
-
             filepath = dir_save + "/recognition.png"
             img.save("static/" + filepath)
 
