@@ -35,6 +35,7 @@ def index(request):
             # Recognition
             # List of int
             result = recognize("../IA/model.h5", new_dir + "466nm.tiff")
+            anomaly_rate = (len(result) / 400) * 100
 
             # Build the picture
             dir_save = "result_color"
@@ -59,7 +60,9 @@ def index(request):
             filepath = dir_save + "/recognition.png"
             img.save("static/" + filepath)
 
-            return render(request, 'user/index.html', { 'img': filepath })
+            return render(request, 'user/index.html', { 'img': filepath,
+                                                        'rate': anomaly_rate
+                                                        })
     else:
         form = UserForm()
     return render(request, 'user/index.html', { 'form': form })

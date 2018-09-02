@@ -80,18 +80,27 @@
 
         <!-- Featured Project Row -->
         <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+            <p>
+                Vous êtes sur la page d'utilisation du logiciel, pour obtenir le taux d'anomalies sur une photo.
+                Vous devez importer un dossier zip contenant l'image à traiter.
+            </p>
             <form enctype="multipart/form-data"
                   action="{% url 'user:index' %}" method="post">
                 <!-- csrf_token -->
                 {% if form %}
                     {{ form }}
                     <input type="submit" value="Submit">
-                {% else %}
-                    <img src="{% static img %}"
-                         width="70%"
-                         style="position: relative; margin: auto;">
                 {% endif %}
             </form>
+            {% if not form %}
+                <p>
+                    Le taux d'anomalie obtenu pour l'image que vous avez importée est de :
+                    {{ rate }} %.
+                </p>
+                <img src="{% static img %}"
+                     width="70%"
+                     style="position: relative; margin: auto;">
+            {% endif %}
         </div>
 
     </div>
