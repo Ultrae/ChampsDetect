@@ -30,10 +30,10 @@ def assembly(path, num_channel): # path of training - number of chanel
 def learnImage(filepath): # Save model + weight in filepath
   img_width, img_height = 50, 50
   channel = 3
-  nb_train_samples = 480
-  nb_validation_samples = 480
-  epochs = 400
-  batch_size = 39
+  nb_train_samples = 58
+  nb_validation_samples = 58
+  epochs = 600
+  batch_size = 14
   filepath = 'model.h5'
   train_data_dir = 'data/train' # Database
   validation_data_dir = 'data/validation'
@@ -60,7 +60,7 @@ def learnImage(filepath): # Save model + weight in filepath
   model.add(Flatten())
   model.add(Dense(64))
   model.add(Activation('relu'))
-  model.add(Dropout(0.55))
+  model.add(Dropout(0.2))
   model.add(Dense(1))
   model.add(Activation('sigmoid'))
 
