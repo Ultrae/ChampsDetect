@@ -13,16 +13,10 @@
 2.  Mac OS X
 3.  Linux
 
-## Docker
-Si Docker est utilisé, lien vers les images ou le docker-compose
-
 ## Technologies utilisées
 1.  Tensorflow - Intelligence Artificielle
 2.  Django Python
 3.  Javascript
 
-## Éléments de paramétrage
-
 ## Usage
-  $ cd website
-  $ python manage.py runserver
+  $ cd website && python manage.py runserver
