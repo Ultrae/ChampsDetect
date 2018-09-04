@@ -1,6 +1,6 @@
 ## Presentation
-    This is the repository developed for 'HackTaFerme' in which we got the second place.
-    This project was proposed by Sébastien and Basile at the level of the vine,
+    This is the repository developed for the 'HackTaFerme' hackathon in which we got the second place.
+    This project was proposed by Sébastien and Basile at the vineyard level,
     and by Jean-Baptiste Guichon for the field crop plots.
 
     This project allows winemakers to detect the rate of healthy grapes in a bucket of grapes
@@ -14,7 +14,7 @@
 3.  Linux
 
 ## Technologies utilisées
-1.  Tensorflow - Intelligence Artificielle
+1.  Tensorflow - Artificial Intelligence
 2.  Django Python
 3.  Javascript
 
