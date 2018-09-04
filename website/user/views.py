@@ -37,14 +37,14 @@ def index(request):
                 classicPictureSaving(request)
 
             # Cut in little pieces
-            path = 'image_folder/' + name + "/"
+            '''path = 'image_folder/' + name + "/"
             new_dir = 'cut_images/' + name + "/"
             for file in os.listdir(path):
                 new_new_dir =  new_dir + file
                 if int(form['type_of_picture'].data) == 1:
                     cut(path + file, new_new_dir)
                 elif png:
-                    cut_jpg_png(path + file, new_new_dir)
+                    cut_jpg_png(path + file, new_new_dir)'''
 
             # Recognition
             # List of int
@@ -119,10 +119,32 @@ def classicPictureSaving(request):
         for chunk in file.chunks():
             dest.write(chunk)
 
+    return name
+
 
 def hyperspectralHandler(request):
-    zipSaving(request)
+    name = zipSaving(request)
+
+    path = 'image_folder/' + name + "/"
+    new_dir = 'cut_images/' + name + "/"
+    for file in os.listdir(path):
+        new_new_dir = new_dir + file
+        cut(path + file, new_new_dir)
+
+    img = None
+
+    return img
 
 
 def classicPictureHandler(request):
-    pass
+    name = classicPictureSaving(request)
+
+    path = 'image_folder/' + name + "/"
+    new_dir = 'cut_images/' + name + "/"
+    for file in os.listdir(path):
+        new_new_dir = new_dir + file
+        cut_jpg_png(path + file, new_new_dir)
+
+    img = None
+
+    return img
