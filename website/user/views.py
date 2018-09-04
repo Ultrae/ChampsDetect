@@ -67,20 +67,7 @@ def index(request):
             img = img.convert("RGB")
 
             # Show anomalies on the picture
-            inc = 0
-            piece = 0
-            result_len = len(result)
-            for j in range(0, SIZE_IMG, SIZE_CELL):
-                for i in range(0, SIZE_IMG, SIZE_CELL):
-                    if inc < result_len and result[inc] == piece:
-                        draw = ImageDraw.Draw(img)
-                        draw.rectangle([(i, j),
-                                        (i + SIZE_CELL, j + SIZE_CELL)],
-                                       outline="#ff0000")
-                        inc += 1
-                    piece += 1
-            filepath = dir_save + "/recognition.png"
-            img.save("static/" + filepath)
+            filepath = showAnomalies(dir_save, img, result)
 
             log = Log(date=datetime.datetime.now(),
                       description=form['select'].data,
@@ -93,6 +80,25 @@ def index(request):
     else:
         form = UserForm()
     return render(request, 'user/index.html', { 'form': form })
+
+
+def showAnomalies(saving_dir, img, recognition_result):
+    inc = 0
+    piece = 0
+    result_len = len(recognition_result)
+    for j in range(0, SIZE_IMG, SIZE_CELL):
+        for i in range(0, SIZE_IMG, SIZE_CELL):
+            if inc < result_len and recognition_result[inc] == piece:
+                draw = ImageDraw.Draw(img)
+                draw.rectangle([(i, j),
+                                (i + SIZE_CELL, j + SIZE_CELL)],
+                               outline="#ff0000")
+                inc += 1
+            piece += 1
+    filepath = saving_dir + "/recognition.png"
+    img.save("static/" + filepath)
+
+    return filepath
 
 
 def zipSaving(request):
@@ -115,7 +121,7 @@ def classicPictureSaving(request):
 
 
 def hyperspectralHandler(request):
-    pass
+    zipSaving(request)
 
 
 def classicPictureHandler(request):
