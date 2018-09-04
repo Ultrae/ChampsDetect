@@ -1,14 +1,12 @@
-# Nom de votre projet
-  Nous avons décidé de nommer notre projet :
-    "ChampsDetect"
+## Presentation
+    This is the repository developed for 'HackTaFerme' in which we got the second place.
+    This project was proposed by Sébastien and Basile at the level of the vine,
+    and by Jean-Baptiste Guichon for the field crop plots.
 
-## Présentation
-    Ce projet permet aux vignerons de détecter le taux de grains de raisins sains
-  dans un seau de grappes, sur présentation de photos.
-    Les agriculteurs en grandes cultures peuvent également recevoir des
-  informations quant aux parties de parcelles endommagées.
-    Ce projet nous a été proposé par Sébastien et Basile au niveau de la vigne,
-  ainsi que par Jean-Baptiste Guichon par rapport aux parcelles grandes cultures.
+    This project allows winemakers to detect the rate of healthy grapes in a bucket of grapes
+    thanks to a picture.
+    Field crop farmers may also receive information about parts of damaged plots.
+
 
 ## OS utilisé pour héberger la solution
 1.  Windows
@@ -25,6 +23,6 @@ Si Docker est utilisé, lien vers les images ou le docker-compose
 
 ## Éléments de paramétrage
 
-## Commandes (lancer / stopper / autre...)# HackTaFerme
+## Usage
   $ cd website
   $ python manage.py runserver
