@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.template import loader
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,11 +10,9 @@ import sys
 import os
 import datetime
 from PIL import Image, ImageDraw
-import numpy
 
 sys.path.insert(0, '../IA/')
-
-from reconnaissance import cut, cut_jpg_png, recognize, color, SIZE_CELL, SIZE_IMG
+from reconnaissance import *
 
 @csrf_exempt
 def index(request):
@@ -32,18 +28,13 @@ def index(request):
             png = int(form['type_of_picture'].data) == 2
             if zip: # zip
                 try:
-                    name = zipHandler(request)
+                    name = zipSaving(request)
                 except zipfile.BadZipFile:
                     return render(request, 'user/index.html',
                                     {'form': form})
+                # Call hyperspectr
             elif png: # PNG
-                name = request.FILES['img_folder'].name
-                file = request.FILES['img_folder']
-                if not os.path.exists("image_folder/" + name):
-                    os.makedirs("image_folder/" + name)
-                with open('image_folder/' + name + "/" + name, "wb+") as dest:
-                    for chunk in file.chunks():
-                        dest.write(chunk)
+                classicPictureSaving(request)
 
             # Cut in little pieces
             path = 'image_folder/' + name + "/"
@@ -104,10 +95,28 @@ def index(request):
     return render(request, 'user/index.html', { 'form': form })
 
 
-def zipHandler(request):
+def zipSaving(request):
     img_zip = zipfile.ZipFile(request.FILES['img_folder'])
     img_zip.extractall('image_folder/')
     name = img_zip.filename[:-4]
     img_zip.close()
 
     return name
+
+
+def classicPictureSaving(request):
+    name = request.FILES['img_folder'].name
+    file = request.FILES['img_folder']
+    if not os.path.exists("image_folder/" + name):
+        os.makedirs("image_folder/" + name)
+    with open('image_folder/' + name + "/" + name, "wb+") as dest:
+        for chunk in file.chunks():
+            dest.write(chunk)
+
+
+def hyperspectralHandler(request):
+    pass
+
+
+def classicPictureHandler(request):
+    pass
