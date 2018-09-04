@@ -8,25 +8,6 @@ import numpy as np
 
 import glob
 
-def assembly(path, num_channel): # path of training - number of chanel
-  res = np.array([])
-  if path != '':
-    path += '/'
-
-  for i in range (num_channel):
-    files = glob.glob(path + str(i) + '*')
-    if len(files) == 0:
-      continue
-
-    for file in files:
-      print (file)
-      img = load_img(file)
-      x = img_to_array(img)
-      np.concatenate((res, x))
-
-  return res
-
-
 def learnImage(filepath): # Save model + weight in filepath
   img_width, img_height = 50, 50
   channel = 3
@@ -34,9 +15,8 @@ def learnImage(filepath): # Save model + weight in filepath
   nb_validation_samples = 58
   epochs = 600
   batch_size = 14
-  filepath = 'model.h5'
-  train_data_dir = 'data/train' # Database
-  validation_data_dir = 'data/validation'
+  train_data_dir = 'data/train' # Database for learning
+  validation_data_dir = 'data/validation' # Database for testing
 
   if K.image_data_format() == 'channels_first':
     input_shape = (channel, img_width, img_height)
@@ -96,28 +76,6 @@ def learnImage(filepath): # Save model + weight in filepath
       validation_steps=nb_validation_samples // batch_size)
 
   model.save(filepath)
-  print('save')
+  print('save in ' + filepath)
 
 learnImage('model.h5')
-#assembly('data/train/bad', 4)
-
-"""
-new_model = load_model(filepath)
-
-img = load_img('./data/train/good/500_300.png')
-
-#img = load_img('./data/train/bad/800_600.png')
-x = img_to_array(img)
-
-x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2])
-# print (model.predict(x))
-
-print (new_model.predict(x))
-"""
-
-"""
-img = load_img('./450nm.tiff')
-x = img_to_array(img)
-print (x)
-print (len(x[0]))
-"""
