@@ -19,56 +19,32 @@ def index(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
         if form.is_valid():
-            # Save the folder
             if not os.path.exists("image_folder/"):
                 os.makedirs("image_folder")
 
-            name = request.FILES['img_folder'].name
-            zip = int(form['type_of_picture'].data) == 1
-            png = int(form['type_of_picture'].data) == 2
-            if zip: # zip
-                try:
-                    name = zipSaving(request)
-                except zipfile.BadZipFile:
-                    return render(request, 'user/index.html',
-                                    {'form': form})
-                # Call hyperspectr
-            elif png: # PNG
-                classicPictureSaving(request)
-
-            # Cut in little pieces
-            '''path = 'image_folder/' + name + "/"
-            new_dir = 'cut_images/' + name + "/"
-            for file in os.listdir(path):
-                new_new_dir =  new_dir + file
-                if int(form['type_of_picture'].data) == 1:
-                    cut(path + file, new_new_dir)
-                elif png:
-                    cut_jpg_png(path + file, new_new_dir)'''
-
-            # Recognition
-            # List of int
-            result = []
-            if zip:
-                result = recognize("../IA/model.h5", new_dir + "478nm.tiff")
-            elif png:
-                result = recognize("../IA/model.h5", new_dir + "/" + name)
-            anomaly_rate = (len(result) / 400) * 100
-
-            # Build the picture
             dir_save = "result_color"
             if not os.path.exists("static/" + dir_save):
                 os.makedirs("static/" + dir_save)
-            img = None
-            if zip:
-                img = color(path + "610nm.tiff", path + "550nm.tiff", path + "466nm.tiff")
-            else:
-                img = Image.open(path + name)
-            img = img.convert("RGB")
+
+            zip = int(form['type_of_picture'].data) == 1
+            png = int(form['type_of_picture'].data) == 2
+
+            handled = (None, None)
+            if zip: # zip
+                try:
+                    handled = hyperspectralHandler(request)
+                except zipfile.BadZipFile:
+                    return render(request, 'user/index.html',
+                                    {'form': form})
+            elif png: # PNG
+                handled = classicPictureHandler(request)
+
+            anomaly_rate = (len(handled[1]) / 400) * 100
 
             # Show anomalies on the picture
-            filepath = showAnomalies(dir_save, img, result)
+            filepath = showAnomalies(dir_save, handled[0], handled[1])
 
+            # Log entries for dashboard
             log = Log(date=datetime.datetime.now(),
                       description=form['select'].data,
                       pourcent=round(anomaly_rate))
@@ -131,9 +107,15 @@ def hyperspectralHandler(request):
         new_new_dir = new_dir + file
         cut(path + file, new_new_dir)
 
-    img = None
+    result = recognize("../IA/model.h5", new_dir + "478nm.tiff")
 
-    return img
+    dir_save = "result_color"
+    if not os.path.exists("static/" + dir_save):
+        os.makedirs("static/" + dir_save)
+    img = color(path + "610nm.tiff", path + "550nm.tiff", path + "466nm.tiff")
+    img = img.convert("RGB")
+
+    return (img, result)
 
 
 def classicPictureHandler(request):
@@ -145,6 +127,12 @@ def classicPictureHandler(request):
         new_new_dir = new_dir + file
         cut_jpg_png(path + file, new_new_dir)
 
-    img = None
+    result = recognize("../IA/model.h5", new_dir + "/" + name)
 
-    return img
+    dir_save = "result_color"
+    if not os.path.exists("static/" + dir_save):
+        os.makedirs("static/" + dir_save)
+    img = Image.open(path + name)
+    img = img.convert("RGB")
+
+    return (img, result)
