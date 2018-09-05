@@ -1,0 +1,12 @@
+1. Complete the fields inside segmentation.py and run it :
+
+FOLDER_OF_PHOTO : The folder of the photo to segment
+FOLDER_WHERE_SAVE : The folder where save the photo segmented
+PHOTO_NAME : The name of the photo to segment
+PHOTO_NUMBER : This number will added at the beginning of the name of each segmented photo
+
+2. Select the square which will be saved in the 'bad' folder, the other will be saved in the 'good' folder
+
+3. Press a key to start the segmentation
+
+4. The end
