@@ -22,12 +22,11 @@
   $ cd website && python manage.py runserver
 
 ## Authors
-Fang Clément 			clement.fang@epita.fr
-Ghirlanda Mathieu 		mathieu.ghirlanda@epita.fr
-Guehennec Victoria 		victoria.guehennec@epita.fr
-Mounier Corentin 		corentin.mounier@epita.fr
-Roudaut François-Joseph francois-joseph.roudaut@epita.fr
+* Fang Clément 			clement.fang@epita.fr
+* Ghirlanda Mathieu 		mathieu.ghirlanda@epita.fr
+* Guehennec Victoria 		victoria.guehennec@epita.fr
+* Mounier Corentin 		corentin.mounier@epita.fr
+* Roudaut François-Joseph francois-joseph.roudaut@epita.fr
 
 # Licence
-Apache License
 Please refer to the LICENSE file
