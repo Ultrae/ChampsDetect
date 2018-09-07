@@ -1,147 +1,78 @@
+{% extends "template.html" %}
 {% load static %}
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+{% block title %}    <title>ChampsDetec</title> {% endblock %}
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}"
-          rel="stylesheet"/>
-
-    <!-- Custom fonts for this template -->
-    <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}"
-          rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round"
-          rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel=" stylesheet"/>
-
-    <!-- Custom styles for this template -->
-    <link href="{% static "css/grayscale.min.css" %}" rel="stylesheet"/>
-    <title>ChampsDetec</title>
-</head>
-
-<body id="page-top">
-
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="/home">Accueil</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button"
-                data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="/home">Qu'est-ce donc ?</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="/user"> Utiliser ChampsDetect </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="/expert">Renseigner des données</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="/dashboard">Tableau de bord</a>
-                </li>
-            </ul>
+{% block content %}
+    <!-- Header -->
+    <header class="mastheadA">
+        <div class="container d-flex h-100 align-items-center">
+            <div class="mx-auto text-center">
+                <h1 class="mx-auto my-0 text-uppercase">Analyser</h1>
+                <h2 class="text-white-50 mx-auto mt-2 mb-5">Un outil pour
+                    détecter
+                    et évaluer les produits indésirables de vos plantations</h2>
+                <a href="#projects" class="btn btn-primary js-scroll-trigger">Analyser
+                    une image</a>
+            </div>
         </div>
-    </div>
-</nav>
+    </header>
 
-<!-- Header -->
-<header class="mastheadA">
-    <div class="container d-flex h-100 align-items-center">
-        <div class="mx-auto text-center">
-            <h1 class="mx-auto my-0 text-uppercase">Analyser</h1>
-            <h2 class="text-white-50 mx-auto mt-2 mb-5">Un outil pour détecter
-                et évaluer les produits indésirables de vos plantations</h2>
-            <a href="#projects" class="btn btn-primary js-scroll-trigger">Analyser une image</a>
-        </div>
-    </div>
-</header>
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section bg-light">
+        <div class="container">
 
-<!-- Projects Section -->
-<section id="projects" class="projects-section bg-light">
-    <div class="container">
-
-        <!-- Featured Project Row -->
-        <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-            <p>
-                Bienvenue sur la page d'utilisation du logiciel !
-                Vous pouvez obtenir le taux d'anomalies sur une photo que vous importez.
-            </p>
-            <form enctype="multipart/form-data"
-                  action="{% url 'user:index' %}" method="post">
-                <!-- csrf_token -->
-                {% if form %}
-                    <p>Sélectionnez le type d'image que vous souhaitez analyser : </p>
-                    {{ form.select }}
-                    <br/>
-                    <br/>
-                    <p>Sélectionnez le format de l'image à analyser : </p>
-                    {{ form.type_of_picture }}
-                    <br/>
-                    <br/>
-                    <p>
-                        Si vous avez choisi une image hyperscpetrale, importez le dossier contenant les images .tiff,
-                        au format .zip.
-                        Si vous avez choisi une image au format PNG; importez l'image.
-                    </p>
-                    {{ form.img_folder }}
-                    <br/>
-                    <br/>
-                    <br/>
-                    <input class="btn btn-primary" type="submit" value="Submit">
-                {% endif %}
-            </form>
-            {% if not form %}
+            <!-- Featured Project Row -->
+            <div class="row align-items-center no-gutters mb-4 mb-lg-5">
                 <p>
-                    Le taux d'anomalie obtenu pour l'image que vous avez importée est de :
-                    {{ rate }} %.
+                    Bienvenue sur la page d'utilisation du logiciel !
+                    Vous pouvez obtenir le taux d'anomalies sur une photo que
+                    vous
+                    importez.
                 </p>
-                <img src="{% static img %}"
-                     width="70%"
-                     style="position: relative; margin: auto;">
-            {% endif %}
+                <form enctype="multipart/form-data"
+                      action="{% url 'user:index' %}" method="post">
+                    <!-- csrf_token -->
+                    {% if form %}
+                        <p>Sélectionnez le type d'image que vous souhaitez
+                            analyser
+                            : </p>
+                        {{ form.select }}
+                        <br/>
+                        <br/>
+                        <p>Sélectionnez le format de l'image à analyser : </p>
+                        {{ form.type_of_picture }}
+                        <br/>
+                        <br/>
+                        <p>
+                            Si vous avez choisi une image hyperscpetrale,
+                            importez
+                            le dossier contenant les images .tiff,
+                            au format .zip.
+                            Si vous avez choisi une image au format PNG;
+                            importez
+                            l'image.
+                        </p>
+                        {{ form.img_folder }}
+                        <br/>
+                        <br/>
+                        <br/>
+                        <input class="btn btn-primary" type="submit"
+                               value="Submit">
+                    {% endif %}
+                </form>
+                {% if not form %}
+                    <p>
+                        Le taux d'anomalie obtenu pour l'image que vous avez
+                        importée est de :
+                        {{ rate }} %.
+                    </p>
+                    <img src="{% static img %}"
+                         width="70%"
+                         style="position: relative; margin: auto;">
+                {% endif %}
+            </div>
+
         </div>
-
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-black small text-center text-white-50">
-    <div class="container">
-        Copyright &copy; Your Website 2018
-    </div>
-</footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
-<script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
-
-<!-- Plugin JavaScript -->
-<script src="{% static "vendor/jquery-easing/jquery.easing.min.js" %}"></script>
-
-<!-- Custom scripts for this template -->
-<script src="{% static "js/grayscale.min.js" %}"></script>
-
-</body>
-
-</html>
+    </section>
+{% endblock %}

@@ -35,7 +35,7 @@ def index(request):
                     handled = hyperspectralHandler(request)
                 except zipfile.BadZipFile:
                     return render(request, 'user/index.html',
-                                    {'form': form})
+                                  {'form': form})
             elif png: # PNG
                 handled = classicPictureHandler(request)
 
@@ -50,12 +50,12 @@ def index(request):
                       pourcent=round(anomaly_rate))
             log.save()
 
-            return render(request, 'user/index.html', { 'img': filepath,
+            return render(request, 'user/index.html', {'img': filepath,
                                                         'rate': anomaly_rate
-                                                        })
+                                                       })
     else:
         form = UserForm()
-    return render(request, 'user/index.html', { 'form': form })
+    return render(request, 'user/index.html', {'form': form})
 
 
 def showAnomalies(saving_dir, img, recognition_result):

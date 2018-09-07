@@ -60,6 +60,10 @@ STATICFILES_DIRS = [
     '/static/'
 ]
 
+TEMPLATES_DIR = [
+    '/static'
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
