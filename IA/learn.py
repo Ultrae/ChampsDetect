@@ -1,28 +1,34 @@
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
-from keras.models import Sequential
+from keras.models import Sequential, Model
 from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Activation, Dropout, Flatten, Dense
+from keras.layers import Activation, Dropout, Flatten, Dense, Input
 from keras.models import load_model
 from keras import backend as K
+from keras.applications.vgg16 import VGG16
 import numpy as np
 
 import glob
 
-def learnImage(filepath): # Save model + weight in filepath
-  img_width, img_height = 50, 50
-  channel = 3
-  nb_train_samples = 58
-  nb_validation_samples = 58
-  epochs = 600
-  batch_size = 14
-  train_data_dir = 'data/train' # Database for learning
-  validation_data_dir = 'data/validation' # Database for testing
+def Vgg16(width, height, channel):
+  input_tensor = Input(shape=(width, height, channel))
+  vgg16 = VGG16(include_top=False, weights='imagenet',
+          input_tensor=input_tensor)
 
-  if K.image_data_format() == 'channels_first':
-    input_shape = (channel, img_width, img_height)
-  else:
-    input_shape = (img_width, img_height, channel)
+  top_model = Sequential()
+  top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
+  top_model.add(Dense(512, activation='relu'))
+  top_model.add(Dropout(0.5))
+  top_model.add(Dense(256, activation='relu'))
+  top_model.add(Dropout(0.5))
+  top_model.add(Dense(1, activation='sigmoid'))
 
+  model = Model(input=vgg16.input, output=top_model(vgg16.output))
+  for layer in model.layers[:13]:
+    layer.trainable = False
+
+  return model
+
+def Cnn():
   model = Sequential()
 
   model.add(Conv2D(32, (3, 3), input_shape=input_shape))
@@ -43,6 +49,30 @@ def learnImage(filepath): # Save model + weight in filepath
   model.add(Dropout(0.2))
   model.add(Dense(1))
   model.add(Activation('sigmoid'))
+
+  return model
+
+def learnImage(filepath): # Save model + weight in filepath
+  img_width, img_height = 50, 50
+  channel = 3
+  nb_train_samples = 58
+  nb_validation_samples = 58
+  epochs = 100
+  batch_size = 14
+  train_data_dir = 'data/train' # Database for learning
+  validation_data_dir = 'data/validation' # Database for testing
+
+  if K.image_data_format() == 'channels_first':
+    input_shape = (channel, img_width, img_height)
+  else:
+    input_shape = (img_width, img_height, channel)
+
+  """
+  model = Cnn()
+  """
+
+  model = Vgg16(img_width, img_height, channel)
+
 
   model.compile(loss='binary_crossentropy',
                 optimizer='rmsprop',
@@ -75,7 +105,8 @@ def learnImage(filepath): # Save model + weight in filepath
       validation_data=validation_generator,
       validation_steps=nb_validation_samples // batch_size)
 
-  model.save(filepath)
+  model.save_weights(filepath + '_weight.h5')
+  model.save(filepath + '.h5')
   print('save in ' + filepath)
 
-learnImage('model.h5')
+learnImage('model')
