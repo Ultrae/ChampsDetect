@@ -2,9 +2,6 @@ import numpy
 import os
 import re
 from PIL import Image
-from keras.models import load_model
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
-import sys
 
 SIZE_CELL = 50
 SIZE_IMG = 1000
@@ -98,29 +95,6 @@ def cut_expert(path_img, dir_save, select_pts, no_file=''):
                 cropped_img.close()
     img.close()
 
-
-def recognize(model_file, path): # model_file : model + weight
-  try:
-    model = load_model(model_file)
-  except IOError:
-    print ('no good model')
-    return [-1]
-
-  seuil = 0.2
-  cpt = 0
-  bad_list = []
-  for file in os.listdir(path):
-    new_file = path + '/' + file
-    img = load_img(new_file)
-    x = img_to_array(img)
-    x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2]) # 3D to 4D
-
-    value = model.predict(x)[0][0]
-    if value < seuil:
-      bad_list.append(cpt)
-    cpt += 1
-  return bad_list
-
 def color(img_r, img_g, img_b):
     img_R = Image.open(img_r)
     R = numpy.array(img_R) // 256
@@ -133,7 +107,3 @@ def color(img_r, img_g, img_b):
     img = Image.new('RGB', (width, width))
     img.putdata(data)
     return img
-
-if __name__ == '__main__':
-  path = sys.argv[1]
-  print (recognize('model.h5', path))
