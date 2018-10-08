@@ -12,7 +12,8 @@ import datetime
 from PIL import Image, ImageDraw
 
 sys.path.insert(0, '../IA/')
-from reconnaissance import *
+from data import *
+from recognize import recognize
 
 @csrf_exempt
 def index(request):
