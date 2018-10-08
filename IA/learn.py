@@ -1,16 +1,16 @@
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
-from keras.models import Sequential, Model
-from keras.layers import Conv2D, MaxPooling2D
-from keras.layers import Activation, Dropout, Flatten, Dense, Input
-from keras.models import load_model
 from keras import backend as K
 from keras.applications.vgg16 import VGG16
+from keras.layers import Activation, Dropout, Flatten, Dense, Input
+from keras.layers import Conv2D, MaxPooling2D
+from keras.models import Sequential, Model
+from keras.models import load_model
+from keras.optimizers import Adam
+from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
+import glob
 import numpy as np
 
-import glob
-
-def Vgg16(width, height, channel):
-  input_tensor = Input(shape=(width, height, channel))
+def Vgg16(input_shape):
+  input_tensor = Input(input_shape)
   vgg16 = VGG16(include_top=False, weights='imagenet',
           input_tensor=input_tensor)
 
@@ -28,7 +28,7 @@ def Vgg16(width, height, channel):
 
   return model
 
-def Cnn():
+def Cnn(input_shape):
   model = Sequential()
 
   model.add(Conv2D(32, (3, 3), input_shape=input_shape))
@@ -52,12 +52,13 @@ def Cnn():
 
   return model
 
-def learnImage(filepath): # Save model + weight in filepath
+# Save model + weight in weight_path
+def learnImage(weight_path, model_path = 'model', load_weight = False):
   img_width, img_height = 50, 50
   channel = 3
   nb_train_samples = 58
   nb_validation_samples = 58
-  epochs = 100
+  epochs = 300
   batch_size = 14
   train_data_dir = 'data/train' # Database for learning
   validation_data_dir = 'data/validation' # Database for testing
@@ -67,15 +68,15 @@ def learnImage(filepath): # Save model + weight in filepath
   else:
     input_shape = (img_width, img_height, channel)
 
-  """
-  model = Cnn()
-  """
+#  model = Cnn(input_shape)
 
-  model = Vgg16(img_width, img_height, channel)
+  model = Vgg16(input_shape)
 
+  if load_weight and np.DataSource().exists(weight_path):
+      model.load_weights(weight_path)
 
   model.compile(loss='binary_crossentropy',
-                optimizer='rmsprop',
+                optimizer=Adam(lr = 1e-3),
                 metrics=['accuracy'])
 
   train_datagen = ImageDataGenerator(
@@ -105,8 +106,8 @@ def learnImage(filepath): # Save model + weight in filepath
       validation_data=validation_generator,
       validation_steps=nb_validation_samples // batch_size)
 
-  model.save_weights(filepath + '_weight.h5')
-  model.save(filepath + '.h5')
-  print('save in ' + filepath)
+  model.save_weights(weight_path)
+  model.save(model_path)
+  print('save in ' + weight_path)
 
-learnImage('model')
+learnImage('weight.h5', 'model.h5')

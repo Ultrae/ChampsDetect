@@ -19,10 +19,10 @@ def recognize(model_file, path): # model_file : model + weight
         x = img_to_array(img)
         x = x.reshape(1, x.shape[0], x.shape[1], x.shape[2]) # 3D to 4D
 
-    value = model.predict(x)[0][0]
-    if value < seuil:
-        bad_list.append(cpt)
-    cpt += 1
+        value = model.predict(x)[0][0]
+        if value < seuil:
+            bad_list.append(cpt)
+        cpt += 1
     return bad_list
 
 if __name__ == '__main__':

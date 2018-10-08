@@ -1,9 +1,5 @@
 #! /bin/sh
 
+python recognize.py 'data/train/bad'
 
-bad='data/train/bad/'
-files=$(ls $bad)
-
-for file in ${files}; do
-  python reconnaissance.py $bad$file
-done
+python recognize.py 'data/train/good'
